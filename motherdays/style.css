@@ -1,0 +1,865 @@
+/* ============================================================
+    1. 基本設定・共通パーツ
+============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #5d3523;
+    background-color: #fffafb;
+    line-height: 1.6;
+}
+
+.nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.nav li { margin-left: 20px; }
+.nav a { text-decoration: none; color: #333; font-size: 0.9rem; }
+
+/* ボタンデザイン (共通) */
+.btn-gift {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fd3c78;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    width: min(300px, 85vw);
+    height: 60px;
+    border-radius: 27px;
+    box-shadow: 0 8px 13px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    position: relative;
+}
+
+.icon-arrow {
+    position: absolute;
+    right: 20px;
+    border-style: solid;
+    border-width: 6px 0 6px 8px;
+    border-color: transparent transparent transparent #fff;
+}
+
+/* ============================================================
+    2. 各セクション（SPデフォルト）
+============================================================ */
+
+/* --- ヒーローセクション --- */
+.hero {
+    width: 100%;
+    max-width: 100%;
+    background-image: url('images/FV.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 65%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-text-pc, .hero-image-pc { display: none; }
+
+.hero-btn-area {
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* --- お悩みセクション --- */
+.trouble {
+    padding: 30px 5% 60px;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+.trouble-title {
+    display: inline-block;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: clamp(20px, 5vw, 28px);
+    color: #4a2a1a;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 40px;
+    z-index: 1;
+}
+
+.trouble-title::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background-color: #fbbccb;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.trouble-box {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fdf0f4;
+    padding: 30px 20px;
+    border-radius: 30px;
+}
+
+.trouble-list {
+    list-style: none;
+    text-align: left;
+    display: inline-block;
+}
+
+.trouble-list li {
+    font-size: clamp(15px, 4vw, 18px);
+    margin-bottom: 10px;
+    padding-left: 35px;
+    position: relative;
+}
+
+.trouble-list li::before {
+    content: "❀";
+    position: absolute;
+    left: 0;
+    top: -3px;
+    color: #fbbccb;
+    font-size: 22px;
+}
+
+/* --- 選び方ガイド（SPメイン） --- */
+#gift-guide {
+    padding: 60px 0;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.guide-title {
+    display: inline-block;
+    font-size: 24px;
+    color: #b56b6b;
+    border-bottom: 8px solid #f7a7b3;
+    line-height: 0.5;
+    margin-bottom: 20px;
+}
+
+.guide-lead {
+    font-weight: bold;
+    color: #6a544d;
+    margin-bottom: 60px;
+}
+
+.guide-flex {
+    display: flex;
+    flex-direction: column; /* スマホは縦積み */
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.guide-item {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+}
+
+.fukidashi {
+    position: absolute;
+    top: -35px;
+    left: 0;
+    z-index: 2;
+    background: #fff;
+    border: 1px dashed #ccc;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+/* スマホ：カード内を横並びに（image_8396f7.png再現） */
+/* カード全体 */
+    .card-white {
+    background: #fff;
+    border-radius: 12px; /* 少し角を丸くして柔らかい印象に */
+    border: 1px solid #f0f0f0; /* 薄い枠線で境界をはっきりさせる */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* 自然で柔らかい影 */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 動きを滑らかにする */
+}
+.card-white:hover {
+    transform: translateY(-8px); /* 上に少し浮き上がる */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1); /* 浮いた分、影を濃く広くする */
+    border-color: #f7a7b3; /* 枠線の色をメインカラーに寄せる */
+}
+
+/* テキストエリア */
+.card-txt {
+    flex-grow: 1; /* 余白を埋めて、ボタンを押し下げる */
+    margin-bottom: 15px;
+}
+
+.card-txt h3 {
+    font-size: 16px;
+    color: #b56b6b;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.card-txt p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #6a544d;
+    text-align: left;
+}
+
+/* ボタン：常にカードの最下部に配置 */
+.btn-pink {
+    /* 1. リンクのデフォルトデザインをリセット */
+    text-decoration: none !important; /* 下線を消す */
+    color: #fff !important;           /* 文字を白にする */
+    
+    /* 2. ボタンの土台を作る */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7a7b3;        /* 背景ピンク */
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;               /* 角丸 */
+    font-weight: bold;
+    font-size: 16px;
+    
+    /* 3. クリックしたくなる影と枠線 */
+    border: 1px solid #f7a7b3;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top:10px;
+    
+    /* 4. アニメーション */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* ホバー時の挙動 */
+.btn-pink:hover {
+    background-color: #ffb6c1;        /* 少し明るく */
+    transform: translateY(-3px);      /* 少し浮く */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    color: #fff !important;           /* ホバー時も白を維持 */
+}
+
+/* クリックした瞬間に少し沈む演出（さらにクリック感を出す） */
+.btn-pink:active {
+    transform: scale(0.97);
+}
+
+.card-txt { width: 100%; }
+.card-txt h3 { font-size: 15px; color: #b56b6b; margin-bottom: 5px; }
+
+
+.heart-left { margin-right: 15px; }
+.heart-right { margin-left: 15px; }
+
+/* --- リード文テキスト --- */
+.intro-lead {
+    font-size: clamp(14px, 3.5vw, 17px);
+    color: #6a544d;
+    line-height: 2;
+    font-weight: 500;
+}
+
+.intro-lead p {
+    margin-bottom: 5px;
+}
+/* --- 全体共通 --- */
+.gift-recommend {
+  padding: 80px 20px;
+  background-color: #fffafb;
+  color: #4a2a1a;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* --- タイトル部分（マーカー線再現） --- */
+.kurashi-title {
+  font-size: clamp(24px, 6vw, 36px);
+  font-weight: bold;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.line-marker {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.line-marker::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  width: 100%;
+  height: 15px; /* マーカーの太さ */
+  background-color: #fbbccb;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.line-marker.short::after {
+  width: 80%; /* 「ギフト」の部分のラインを少し短く調整 */
+  left: 10%;
+}
+
+.lead-text {
+  font-size: 15px;
+  line-height: 2;
+  margin-bottom: 80px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* --- おすすめポイント部分 --- */
+.points-title {
+  font-size: clamp(22px, 5vw, 30px);
+  margin-bottom: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ハート装飾（画像がない場合の代用としてサイズ指定） */
+.heart-icon {
+  width: 40px;
+  height: 30px;
+  background: url('images/heart-decor.png') no-repeat center/contain;
+}
+
+.points-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.points-list li {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* 各アイコンの出し分け */
+.point-icon {
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+.red-heart { background-image: url('images/icon-heart.png'); }
+.orange-sun { background-image: url('images/icon-sun.png'); }
+.pink-gift { background-image: url('images/icon-gift.png'); }
+
+
+/* ============================================================
+    3. PC版設定 (768px以上)
+============================================================ */
+@media screen and (min-width: 768px) {
+    .hero {
+        padding-top: 0;
+        height: 495px;
+        background-image: none;
+        background-color: #B9A0A2;
+    }
+
+    .hero-container {
+        position: static;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 50px;
+    }
+
+    .hero-text-pc {
+        display: block;
+        width: 50%;
+        text-align: center;
+        margin-bottom:60px;
+    }
+
+    .main-title { font-size: 80px; -webkit-text-stroke: 0.35px #fff; }
+    .sub-title { font-size: 38px; -webkit-text-stroke: 0.25px #fff; }
+
+    .hero-image-pc {
+        display: flex;
+        width: 50%;
+        justify-content: flex-end;
+    }
+
+    .flower-img { width: 112.5%; max-width: 700px; }
+
+    /* --- PC：選び方ガイドの切り替え --- */
+    .guide-flex {
+        flex-direction: row; /* カードを横並びに */
+        gap: 20px;
+    }
+
+    .guide-item { flex: 1; max-width: 340px; }
+
+    .card-white {
+        flex-direction: column; /* カード内は画像の下にテキスト */
+        height: 400px;
+        align-items: flex-start;
+    }
+
+    .card-white img { width: 100%; margin-bottom: 10px; }
+    .card-txt { width: 100%; }
+}
+
+/* フッター */
+.footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #fce4e4;
+    font-size: 0.8rem;
+}
+
+
+/* --- リードセクション全体 --- */
+.gift-intro {
+    padding: 80px 20px;
+    background-color: #fffafb;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* --- タイトル周り（ハートとマーカー線） --- */
+.title-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.intro-title {
+    font-size: clamp(20px, 5vw, 32px); /* レスポンシブフォントサイズ */
+    color: #4a2a1a;
+    font-weight: bold;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+}
+
+/* 画像にある太いピンクのライン（文字の背面に配置） */
+.intro-title::after {
+    content: "";
+    position: absolute;
+    bottom: 5px; /* 位置調整 */
+    left: 0;
+    width: 100%;
+    height: 15px; /* マーカーの太さ */
+    background-color: #ff6091;
+    opacity: 0.2; /* 薄いピンクに調整 */
+    z-index: -1;
+}
+
+/* ハートの装飾（画像として配置するか擬似要素で） */
+.heart-left, .heart-right {
+    width: 40px;
+    height: 40px;
+    background-image: url('images/heart-icon.png'); /* 適切なパスに書き換えてください */
+    background-size: contain;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+}
+    .gift-intro {
+        padding: 50px 15px;
+    }
+    .sp-only { display: block; } /* スマホで改行 */
+    
+    .heart-left, .heart-right {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .intro-title::after {
+        height: 12px;
+        bottom: 2px;
+    }
+    .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    gap: 60px;
+  }
+
+  .intro-block {
+    flex: 1;
+    text-align: left;
+  }
+
+  .main-title {
+    margin-bottom: 25px;
+  }
+
+  .lead-text {
+    margin-bottom: 0;
+    text-align: center;
+    font-size: 1.0rem;
+  }
+
+  .points-block {
+    flex: 1;
+    background: #fff;
+    padding: 20px 10px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  }
+
+  .points-list {
+    margin: 0;
+    max-width: 100%;
+  }
+}
+
+
+/* --- レスポンシブ調整 --- */
+.sp-only { display: none; }
+/* --- セクション全体 --- */
+.gift-recommend {
+  padding: 80px 20px;
+  background-color: #fffafb;
+  color: #4a2a1a;
+  text-align: center;
+}
+
+.inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* --- タイトル：マーカー線再現 --- */
+.main-title {
+  font-size: clamp(75px, 6vw, 36px);
+  font-weight: bold;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.marker {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 0 5px;
+}
+
+/* image_82bc4d.png の太いピンクライン */
+.marker::before {
+  content: "";
+  position: absolute;
+  bottom: 10px; /* 文字の下側に配置 */
+  left: 0;
+  width: 100%;
+  height: 14px; /* ラインの太さ */
+  background-color: #fbbccb;
+  z-index: -1; /* 文字の後ろへ */
+}
+
+.lead-text {
+  font-size: 1.0rem;
+  line-height: 2.2;
+  margin-bottom: 60px;
+}
+
+/* --- おすすめポイント：ハート装飾 --- */
+.points-title {
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: bold;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* タイトル両脇のハート（疑似要素で再現） */
+.points-title::before,
+.points-title::after {
+  content: "";
+  display: block;
+  width: 35px;
+  height: 30px;
+  background: url('images/heart-double.png') no-repeat center/contain; /* 適切なパスへ */
+}
+
+/* --- ポイントリスト --- */
+.points-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.points-list li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-align: left;
+}
+
+.points-list p {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  flex: 1; /* はみ出し防止 */
+}
+
+/* アイコン：画像に合わせてサイズ固定 */
+.point-icon {
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+.heart { background-image: url('images/icon-heart.png'); }
+.sun   { background-image: url('images/icon-sun.png'); }
+.gift  { background-image: url('images/icon-gift.png'); }
+
+/* --- PC版最適化 (769px以上) --- */
+@media screen and (min-width: 769px) {
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    gap: 80px;
+  }
+
+  .intro-block {
+    flex: 1;
+    text-align: left;
+  }
+
+  .lead-text {
+    margin-bottom: 0;
+  }
+
+  .points-block {
+    flex: 1;
+    padding: 50px;
+    background: #fff;
+    border-radius: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+  }
+
+  .points-list {
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .sp-only { display: none; }
+}
+.points-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* アイコンと文字の間隔 */
+    font-size: 24px;
+    font-weight: bold;
+    color: #4a2a1a;
+}
+
+/* アイコン共通設定 */
+.points-title::before,
+.points-title::after {
+    content: "";
+    display: block;
+    width: 40px;  /* アイコンの幅 */
+    height: 30px; /* アイコンの高さ */
+    background: url('images/heart-double.png') no-repeat center/contain;
+}
+
+/* 右側のハートだけ反転させたい場合（オプション） */
+.points-title::after {
+    transform: scaleX(-1);
+}
+.points-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* アイコンと文字の間隔 */
+    font-size: 24px;
+    font-weight: bold;
+    color: #4a2a1a;
+}
+
+/* アイコン共通設定 */
+.points-title::before,
+.points-title::after {
+    content: "";
+    display: block;
+    width: 40px;  /* アイコンの幅 */
+    height: 30px; /* アイコンの高さ */
+    background: url('images/heart-double.png') no-repeat center/contain;
+}
+
+/* 右側のハートだけ反転させたい場合（オプション） */
+.points-title::after {
+    transform: scaleX(-1);
+}
+.points-title::before {
+    background-image: url('images/heart-left.png');
+}
+.points-title::after {
+    background-image: url('images/heart-right.png');
+}
+/* リスト全体を中央寄せにし、中身を横並び(flex)にする */
+.points-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 300px; /* 左の画像のようなバランスに調整 */
+  margin: 0 auto;
+}
+
+.points-list li {
+  display: flex;
+  align-items: center; /* アイコンと文字の上下中央を揃える */
+  gap: 20px;           /* アイコンと文字の間隔 */
+  text-align: left;
+}
+
+.points-list p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #4a2a1a;
+  margin: 0;
+}
+
+/* アイコンの共通設定 */
+.point-icon {
+  display: inline-block;
+  width: 50px;  /* 左の画像のサイズ感に合わせて調整 */
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0; /* 文字が長くなってもアイコンが潰れないようにする */
+}
+
+/* 各アイコンの画像パス（実際のファイル名に合わせて変更してください） */
+.heart { background-image: url('images/heart.png'); }
+.sun   { background-image: url('images/sun.png'); }
+.gift  { background-image: url('images/gift.png'); }
+/* スクロール誘導全体の配置 */
+/* スクロール誘導全体の配置 */
+.scrolldown {
+    position: absolute;
+    bottom: 10px; /* ★ここを20pxから60pxに変更（線が伸びるスペースを確保） */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+}
+
+/* 縦に伸びる線 */
+.scrolldown::after {
+    content: "";
+    position: absolute;
+    top: 25px; /* ★bottomからtopに変更して、文字のすぐ下から伸びるように調整 */
+    left: 50%;
+    width: 1px;
+    height: 40px;
+    background: #4a2a1a;
+    animation: scroll-line 2.0s cubic-bezier(0.76, 0, 0.3, 1) infinite;
+}
+
+/* 「Scroll」の文字 */
+.scrolldown span {
+    display: block;
+    font-size: 11px;
+    color: #4a2a1a; /* 既存のデザインカラーに合わせています */
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+/* 線が上から下に伸びて消えるアニメーション */
+@keyframes scroll-line {
+    0% {
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+    50% {
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+    51% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+    }
+    100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+    }
+}
