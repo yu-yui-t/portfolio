@@ -1,0 +1,495 @@
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-bg:      #f2ebe0;
+  --clr-dark:    #2e231a;
+  --clr-mid:     #6b5840;
+  --clr-warm:    #b89a78;
+  --clr-cream:   #f5eee4;
+  --clr-white:   #fdfaf6;
+  --ff-serif-jp: 'Noto Serif JP', serif;
+  --ff-serif-en: 'Cormorant Garamond', serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--clr-bg);
+  color: var(--clr-dark);
+  font-family: var(--ff-serif-jp);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   FIRST VIEW
+============================================================ */
+.fv {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+}
+
+/* 背景画像（PC用） */
+.fv__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('images/pc.jpg');
+  background-size: cover;
+  background-position: center 45%;
+  animation: fvZoom 2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fvZoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1.00); }
+}
+
+/* オーバーレイ */
+.fv__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(46, 35, 26, 0.05) 0%,
+    rgba(46, 35, 26, 0.18) 55%,
+    rgba(46, 35, 26, 0.30) 100%
+  );
+}
+
+/* テキストブロック */
+.fv__body {
+  position: absolute;
+  right: clamp(24px, 5vw, 80px);
+  top: 20%;
+  transform: translateY(-50%);
+  z-index: 3;
+  text-align: right;
+  opacity: 0;
+  animation: fvBodyIn 1s 0.5s ease both;
+}
+
+@keyframes fvBodyIn {
+  from { opacity: 0; transform: translateY(calc(-50% + 20px)); }
+  to   { opacity: 1; transform: translateY(-50%); }
+}
+
+/* 見出し行 */
+.fv__headline-row {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: clamp(6px, 1vw, 14px);
+  line-height: 1;
+}
+
+/* メインコピー */
+.fv__headline {
+  font-family: var(--ff-serif-jp);
+  font-weight: 300;
+  font-size: clamp(1.4rem, 3.6vw, 3rem);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: var(--clr-white);
+  text-shadow: 0 2px 24px rgba(46, 35, 26, 0.25);
+  opacity: 0;
+  animation: fvFadeUp 0.9s 0.9s ease both;
+}
+
+/* シェイプ */
+.fv__shape {
+  flex-shrink: 0;
+  width: clamp(24px, 3vw, 44px);
+  opacity: 0;
+  animation: fvShapeIn 1.2s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fvShapeIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.fv__shape-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 18%;
+}
+
+/* サブコピー */
+.fv__sub {
+  font-weight: 200;
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  line-height: 2.0;
+  letter-spacing: 0.1em;
+  color: rgba(253, 250, 246, 0.80);
+  margin-top: clamp(10px, 1.5vw, 20px);
+  text-align: center;
+  opacity: 0;
+  animation: fvFadeUp 0.9s 1.1s ease both;
+}
+
+@keyframes fvFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* スクロールインジケーター */
+.fv__scroll {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  opacity: 0;
+  animation: fvFadeUp 1s 1.8s ease both;
+}
+
+.fv__scroll-text {
+  font-family: var(--ff-serif-en);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.0rem;          /* ★ 大きく */
+  letter-spacing: 0.32em;
+  color: rgba(253, 250, 246, 0.75);
+  text-transform: lowercase;
+}
+
+.fv__scroll-line {
+  width: 1px;
+  height: 52px;
+  background: rgba(253, 250, 246, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.fv__scroll-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 30%;
+  background: rgba(253, 250, 246, 0.85);
+  animation: scrollSlide 2s 2.2s ease-in-out infinite;
+}
+
+@keyframes scrollSlide {
+  0%   { top: -30%; opacity: 1; }
+  80%  { top: 100%; opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ============================================================
+   FV — Tablet (≤ 900px)
+============================================================ */
+@media (max-width: 900px) {
+  .fv__headline { font-size: clamp(1.3rem, 4vw, 2.2rem); }
+  .fv__shape    { width: clamp(20px, 2.8vw, 36px); }
+}
+
+/* ============================================================
+   FV — SP (≤ 560px)
+============================================================ */
+@media (max-width: 560px) {
+  .fv {
+    height: 200px;
+    min-height: 200px;
+  }
+
+  .fv__bg {
+    background-image: url('images/sp.jpg');
+    background-position: center center;
+  }
+
+  .fv__body {
+    right: 12px;
+    left: 12px;
+    text-align: right;
+    top: 30%;
+  }
+
+  .fv__headline {
+    font-size: clamp(0.95rem, 4vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .fv__headline-row { gap: 5px; }
+  .fv__shape        { width: 18px; }
+
+  .fv__sub {
+    font-size: 0.6rem;
+    line-height: 1.7;
+    margin: 2% 0 0 40%;
+    text-align: center;
+  }
+
+  .fv__sub .sp-br { display: block; }
+
+  /* SP：スクロールを小さめで表示 */
+  .fv__scroll {
+    display: flex;
+    bottom: 2px;
+    gap: 6px;
+  }
+
+  .fv__scroll-text {
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+  }
+
+  .fv__scroll-line { height: 28px; }
+}
+
+@media (min-width: 561px) {
+  .sp-br { display: none; }
+}
+
+/* ============================================================
+   FEATURE SECTION
+============================================================ */
+.feature {
+  background: var(--clr-white);
+  padding: clamp(56px, 9vw, 120px) 0;
+}
+
+/* カード1・2グリッド */
+.feature__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  max-width: 1100px;
+  margin: 0 auto clamp(48px, 7vw, 100px);
+  padding: 0 clamp(24px, 6vw, 80px);
+}
+
+/* カード共通 */
+.feature__card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 画像ラッパー */
+.feature__img-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.feature__card--col .feature__img-wrap {
+  aspect-ratio: 4 / 3;
+}
+
+.feature__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.feature__card:hover .feature__img {
+  transform: scale(1.03);
+}
+
+/* テキスト */
+.feature__text {
+  padding: clamp(14px, 2vw, 24px) 0 0;
+}
+
+.feature__heading {
+  font-family: var(--ff-serif-jp);
+  font-weight: 300;
+  font-size: clamp(0.88rem, 1.3vw, 1.1rem);
+  letter-spacing: 0.09em;
+  line-height: 1.8;
+  color: var(--clr-dark);
+  margin-bottom: clamp(8px, 1vw, 14px);
+}
+
+.feature__body {
+  font-weight: 300;
+  font-size: clamp(0.7rem, 1.1vw, 0.82rem);
+  line-height: 2.1;
+  letter-spacing: 0.06em;
+  color: var(--clr-mid);
+}
+
+/* カード3：横幅いっぱい */
+.feature__card--wide {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 6vw, 80px);
+}
+
+.feature__card--wide .feature__img-wrap {
+  aspect-ratio: 16 / 7;
+  border-radius: 0;
+}
+
+.feature__card--wide .feature__text {
+  padding-top: clamp(16px, 2vw, 28px);
+}
+
+/* ============================================================
+   FEATURE — SP (≤ 560px)
+============================================================ */
+@media (max-width: 560px) {
+  .feature {
+    padding: 40px 0;
+  }
+
+  .feature__inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    margin-bottom: 40px;
+    padding: 0 16px;
+  }
+
+  /* カード1・2：横並び */
+  .feature__card--col {
+    flex-direction: row;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  /* カード2：逆順 */
+  .feature__card--rev {
+    flex-direction: row-reverse;
+  }
+
+  .feature__card--col .feature__img-wrap {
+    width: 42%;
+    flex-shrink: 0;
+    aspect-ratio: 1.3 / 1;
+  }
+
+  .feature__card--col .feature__text {
+    flex: 1;
+    padding: 0;
+  }
+
+  .feature__heading {
+    font-size: 0.82rem;
+    margin-bottom: 6px;
+    letter-spacing: 0.06em;
+  }
+
+  .feature__body {
+    font-size: 0.6rem;
+    line-height: 1.9;
+  }
+
+  /* カード3 */
+  .feature__card--wide {
+    padding: 0;
+  }
+
+  .feature__card--wide .feature__img-wrap {
+    aspect-ratio: 5 / 3;
+    border-radius: 0;
+  }
+
+  .feature__card--wide .feature__text {
+    padding: 14px 16px 0;
+  }
+}
+
+/* ============================================================
+   CTA SECTION
+============================================================ */
+.cta {
+  background: var(--clr-bg);
+  padding: clamp(64px, 10vw, 120px) clamp(24px, 6vw, 80px) clamp(40px, 6vw, 72px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(40px, 6vw, 72px);
+}
+
+.cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 2.5vw, 28px);
+}
+
+/* CTAボタン */
+.cta__btn {
+  display: inline-block;
+  font-family: var(--ff-serif-jp);
+  font-weight: 300;
+  font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+  letter-spacing: 0.12em;
+  color: var(--clr-white);
+  background: var(--clr-mid);
+  padding: clamp(18px, 2.5vw, 26px) clamp(40px, 7vw, 88px);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.cta__btn:hover {
+  background: var(--clr-dark);
+  transform: translateY(-2px);
+}
+
+/* サブノート */
+.cta__note {
+  font-family: var(--ff-serif-jp);
+  font-weight: 200;
+  font-size: clamp(0.72rem, 1.1vw, 0.88rem);
+  letter-spacing: 0.14em;
+  color: var(--clr-mid);
+}
+
+/* 免責テキスト */
+.cta__disclaimer {
+  font-weight: 200;
+  font-size: clamp(0.62rem, 0.9vw, 0.72rem);
+  letter-spacing: 0.06em;
+  line-height: 1.8;
+  color: var(--clr-mid);
+  text-align: center;
+}
+
+/* ============================================================
+   CTA — SP (≤ 560px)
+============================================================ */
+@media (max-width: 560px) {
+  .cta {
+    padding: 48px 20px 36px;
+    gap: 40px;
+  }
+
+  .cta__btn {
+    font-size: 0.92rem;
+    padding: 16px 28px;
+    width: 100%;
+    text-align: center;
+    border-radius: 6px;
+  }
+
+  .cta__note {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  .cta__disclaimer {
+    font-size: 0.6rem;
+    text-align: left;
+  }
+}

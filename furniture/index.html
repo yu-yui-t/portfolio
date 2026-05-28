@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ディズニーコンセプト家具LP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="./images/favicon.png">
+</head>
+<body>
+
+  <!-- ========== FIRST VIEW ========== -->
+  <section class="fv">
+
+    <!-- 背景画像：CSSで指定 -->
+    <div class="fv__bg"></div>
+
+    <!-- オーバーレイ -->
+    <div class="fv__overlay"></div>
+
+    <!-- テキスト＋シェイプブロック -->
+    <div class="fv__body">
+
+      <!-- 見出し行：テキストとシェイプをflex横並び -->
+      <div class="fv__headline-row">
+        <h1 class="fv__headline">リビングに、家族の物語を</h1>
+        <!-- シェイプ PNG（PC用 / SP用 を picture で切り替え） -->
+        <div class="fv__shape" aria-hidden="true">
+          <picture>
+            <source media="(max-width: 560px)" srcset="images/Mickey.png">
+            <img src="images/Mickey.png" alt="" class="fv__shape-img">
+          </picture>
+        </div>
+      </div>
+
+      <p class="fv__sub">
+        きょうだいで育む、<br class="sp-br">
+        北欧ヴィンテージの品格。
+      </p>
+    </div>
+
+    <!-- スクロールインジケーター -->
+    <div class="fv__scroll">
+      <span class="fv__scroll-text">scroll</span>
+      <div class="fv__scroll-line">
+        <div class="fv__scroll-dot"></div>
+      </div>
+    </div>
+
+  </section>
+    <!--FVここまで-->
+    <!-- ========== FEATURE SECTION ========== -->
+  <section class="feature">
+    <div class="feature__inner">
+
+      <!-- カード1 -->
+      <article class="feature__card feature__card--col">
+        <div class="feature__img-wrap">
+          <img src="images/img_01.jpg" alt="アンティーク調の取っ手" class="feature__img">
+        </div>
+        <div class="feature__text">
+          <h2 class="feature__heading">さりげなさに、愛を込めて。</h2>
+          <p class="feature__body">毎日触れるものだから。アンティーク調の真鍮で作られたミッキーシェイプの取っ手は、使うたびに心が少し温まる、大人だけの遊び心です。</p>
+        </div>
+      </article>
+
+      <!-- カード2 -->
+      <article class="feature__card feature__card--col feature__card--rev">
+        <div class="feature__img-wrap">
+          <img src="images/img_02.jpg" alt="軽やかな足のデザイン" class="feature__img">
+        </div>
+        <div class="feature__text">
+          <h2 class="feature__heading">足元に、軽やかなリズムを。</h2>
+          <p class="feature__body">お掃除ロボットもスイスイ通れる実用性と、空間を広く見せる美しさを両立しました。</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- カード3：横幅いっぱい -->
+    <article class="feature__card feature__card--wide">
+      <div class="feature__img-wrap">
+        <img src="images/img_03.jpg" alt="家族の思い出が詰まった棚" class="feature__img">
+      </div>
+      <div class="feature__text">
+        <h2 class="feature__heading">思い出を刻む、家族の真ん中に。</h2>
+        <p class="feature__body">散らかりがちな絵本やおもちゃも、この棚があるだけで、まるでインテリアの一部に。時が経つほどに味わいが増す天然木の質感は、お子様の成長とともに、家族の歴史を静かに見守り続けます。</p>
+      </div>
+    </article>
+
+  </section>
+  <!--featureここまで-->
+    <!-- ========== CTA SECTION ========== -->
+  <section class="cta">
+    <div class="cta__inner">
+
+      <a href="#" class="cta__btn">この棚との暮らしをはじめる</a>
+
+      <p class="cta__note">送料無料 / 大型家具設置サービス対象商品</p>
+
+    </div>
+
+    <p class="cta__disclaimer">＊世界観と権利関係を尊重した、プロとしてのファンアート（架空提案）です。</p>
+  </section>
+  <!--CTAここまで-->
+</body>
+</html>
