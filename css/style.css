@@ -1,0 +1,567 @@
+@charset "utf-8";
+
+/* =========================
+   Design Tokens
+========================= */
+:root {
+  --green:        #009245;
+  --green-light:  #e5f4ec;
+  --green-mid:    #d4e5db;
+  --green-dark:   #385e4a;
+  --text:         #333;
+  --text-sub:     #666;
+  --border:       #ccc;
+  --bg-profile:   #ebf2ee;
+  --radius:       4px;
+
+  /* 余白スケール */
+  --sp-xs:  8px;
+  --sp-s:   16px;
+  --sp-m:   24px;
+  --sp-l:   48px;
+  --sp-xl:  80px;
+  --sp-2xl: 120px;
+
+  /* 作品画像の統一高さ */
+  --thumb-h: 240px;
+
+  /* トランジション */
+  --tr: 0.25s ease;
+}
+
+/* =========================
+   Base Reset
+========================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: "fot-tsukubrdgothic-std", sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.7;
+  margin: 0;
+  overflow-x: hidden;
+  background: #fff;
+}
+
+li  { list-style: none; }
+img { max-width: 100%; height: auto; vertical-align: top; display: block; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--tr), color var(--tr);
+}
+a:hover { opacity: 0.72; }
+
+p { margin: 0 0 var(--sp-s); }
+
+/* =========================
+   Layout
+========================= */
+.inner {
+  max-width: 980px;
+  width: 92%;
+  margin: 0 auto;
+}
+
+/* =========================
+   FV（ファーストビュー）
+========================= */
+.fv {
+  position: relative;
+  padding: 56px 0 64px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* ── 薄いグリッド背景 ── */
+.fv-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,146,69,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,146,69,.055) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.fv-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* ── 英字ラベル ── */
+.fv-label {
+  display: inline-block;
+  font-family: 'Cutive Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--green-dark);
+  border: 1px solid var(--green);
+  padding: 4px 16px;
+  border-radius: 2px;
+  margin: 0 0 24px;
+  opacity: 0.85;
+}
+
+/* ── メインビジュアル ── */
+.portfolio {
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+  font-size: clamp(40px, 8vw, 83px);
+  color: var(--green);
+  text-align: center;
+  background: url("../images/top_img.jpg")
+              no-repeat center center / cover;
+  width: 100%;
+  max-width: 860px;
+  aspect-ratio: 950 / 551;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 28px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,.08);
+}
+
+/* ── キャッチコピー ── */
+.fv-tagline {
+  font-size: clamp(12px, 1.4vw, 14px);
+  color: var(--text-sub);
+  line-height: 1.9;
+  margin: 0 0 28px;
+  letter-spacing: 0.03em;
+}
+
+/* ── ナビ ── */
+.fv-nav { margin: 0; }
+
+/* =========================
+   追従ナビ
+========================= */
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0,146,69,.15);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: none;
+}
+
+.sticky-nav.is-visible {
+  transform: translateY(0);
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+}
+
+.sticky-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+}
+
+/* ロゴ */
+.sticky-nav-logo {
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--green);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+/* リンクリスト */
+.sticky-nav-list {
+  display: flex;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.sticky-nav-list li a {
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  padding: 0 16px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: color var(--tr), border-color var(--tr);
+}
+
+.sticky-nav-list li a:hover {
+  color: var(--green);
+  border-bottom-color: var(--green);
+  opacity: 1;
+}
+
+
+/* =========================
+   Global Nav
+========================= */
+#list {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+}
+
+#list li a {
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+  font-size: 16px;
+  background-image: url("../images/list-line.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 210px;
+  height: 52px; /* 画像の縦寸法を固定して揺れを防ぐ */
+  padding: 0;
+  transition: opacity var(--tr), transform var(--tr);
+}
+
+#list li a:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+#list li a img { display: none !important; }
+
+/* =========================
+   Section 共通
+========================= */
+.sec {
+  margin-bottom: var(--sp-2xl);
+  text-align: center;
+}
+
+/* ── セクション見出し ── */
+.sec h2 {
+  color: var(--green);
+  font-size: clamp(22px, 4vw, 32px);
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 0 auto var(--sp-xl);
+  padding-bottom: 1px;
+  display: block;
+  background: url("../images/list-line.png")
+              no-repeat center bottom / 60% auto;
+}
+
+/* =========================
+   Works カード（.sakuhin）
+========================= */
+.sakuhin {
+  display: flex;
+  gap: 40px;
+  max-width: 920px;
+  margin: 0 auto var(--sp-xl);
+  text-align: left;
+  align-items: flex-start;
+
+  /* カード枠で実務感を演出 */
+  background: #fff;
+  border: 1px solid #e2ede7;
+  border-radius: 6px;
+  padding: var(--sp-m) var(--sp-m) var(--sp-m) 0;
+  transition: box-shadow var(--tr), transform var(--tr);
+}
+
+/* カード hover */
+.sakuhin:hover {
+  box-shadow: 0 6px 24px rgba(0, 146, 69, 0.10);
+  transform: translateY(-3px);
+}
+
+/* ── サムネイル ── */
+.sakuhin > a.thumb {
+  flex: 0 0 42%;
+  display: block;
+  overflow: hidden;
+  height: var(--thumb-h);        /* 全カードで高さ統一 */
+  border-radius: 6px 0 0 6px;    /* カード左側に合わせる */
+  line-height: 0;
+  background: #f3f3f3;           /* 画像ロード前のプレースホルダー */
+}
+
+.sakuhin > a.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;          /* 画像の頭から表示 */
+  transition: transform 0.4s ease;
+}
+
+.sakuhin:hover > a.thumb img {
+  transform: scale(1.04);        /* ズームイン hover */
+}
+
+/* ── テキストエリア ── */
+.sakuhin-migi {
+  flex: 1;
+  margin-top: 0 !important;
+  padding-top: var(--sp-xs);
+}
+
+/* 作品タイトル */
+.sakuhin-migi h3 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text);
+  border-bottom: 2px solid var(--green);
+  padding-bottom: 8px;
+  margin: 0 0 var(--sp-s);
+}
+
+/* ラベル＋説明 dl */
+.sakuhin-migi dl {
+  margin: 0 0 var(--sp-s);
+}
+
+.sakuhin-migi dl dt {
+  display: inline-block;
+  background-color: var(--green-light);
+  color: var(--green-dark);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 10px;
+  border-radius: 2px;
+  margin-bottom: 4px;
+}
+
+.sakuhin-migi dl dd {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0 0 var(--sp-xs);
+}
+
+/* 本文 p（架空ECなど説明文） */
+.sakuhin-migi p {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0 0 var(--sp-s);
+}
+
+/* URL リスト */
+.sakuhin-migi p.url {
+  font-size: 12px;
+  color: var(--text-sub);
+  margin-bottom: 6px;
+}
+.sakuhin-migi p.url a {
+  color: var(--green-dark);
+  text-decoration: underline;
+}
+.sakuhin-migi p.url a:hover { color: var(--green); }
+
+/* =========================
+   リンクボタン
+========================= */
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  margin-right: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green-dark);
+  border-bottom: 1px solid transparent;
+  transition: color var(--tr), border-color var(--tr), gap var(--tr);
+}
+
+.link-btn:hover {
+  color: var(--green);
+  border-bottom-color: var(--green);
+  gap: 8px;   /* 矢印が右へ滑るように */
+  opacity: 1;
+}
+
+/* =========================
+   Profile
+========================= */
+#profile {
+  background: var(--bg-profile);
+  padding: var(--sp-xl) 0;
+  /* .inner の margin に引っかからないよう wrapper に余白を持たせる */
+}
+
+h2#Profile {
+  color: var(--green);
+  font-family: 'Bitter', serif;
+  font-size: clamp(22px, 4vw, 32px);
+  text-align: center;
+  margin: 0 0 var(--sp-l);
+  padding-bottom: 1px;
+  background: url("../images/list-line.png")
+              no-repeat center bottom / 60% auto;
+}
+
+#profile .photo {
+  text-align: center;
+  margin-bottom: var(--sp-m);
+}
+
+#profile .photo img {
+  display: inline-block;
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border: 3px solid var(--green-mid);
+}
+
+p.cutive-mono {
+  text-align: center;
+  font-family: 'Cutive Mono', monospace;
+  font-size: 20px;
+  color: var(--green-dark);
+  margin-bottom: var(--sp-m);
+}
+
+#profile .intro {
+  max-width: 600px;
+  margin: 0 auto var(--sp-l);
+  font-size: 14px;
+  text-align: center;
+  color: var(--text-sub);
+  line-height: 1.8;
+}
+
+#profile dl {
+  max-width: 600px;
+  margin: 0 auto;
+  border-top: 1px solid #aac4b4;
+}
+
+#profile dt {
+  font-family: 'Bitter', serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--green-mid);
+  color: var(--green-dark);
+  padding: 5px 16px;
+  margin-top: 16px;
+  border-radius: 2px;
+}
+
+#profile dd {
+  font-size: 14px;
+  margin: 6px 0 0 4px;
+  color: var(--text);
+}
+
+/* =========================
+   Footer
+========================= */
+#footer {
+  background: var(--green);
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  font-family: 'Cutive Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+/* =========================
+   Responsive — SP（〜768px）
+========================= */
+@media screen and (max-width: 768px) {
+
+  header,
+  .fv { padding: 36px 0 48px; }
+
+  /* ヒーロー：画像比率を維持しつつ幅を画面に合わせる */
+  .portfolio {
+    width: 94%;
+    font-size: clamp(28px, 10vw, 48px);
+    margin-bottom: 20px;
+  }
+
+  .fv-tagline { font-size: 12px; padding: 0 16px; }
+  .fv-label   { font-size: 11px; }
+
+  /* 追従ナビ：SPは文字を小さく、ロゴを非表示 */
+  .sticky-nav-logo { display: none; }
+  .sticky-nav-list li a { font-size: 11px; padding: 0 10px; }
+
+  /* ナビ：2カラム */
+  #list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 6px;
+    padding: 0 10px;
+    width: 94%;
+    margin: 0 auto;
+  }
+
+  #list li a {
+    width: 100%;
+    height: auto;
+    min-height: 48px;
+    font-size: 12px;
+    line-height: 1.3;
+    padding: 10px 6px;
+    background-size: contain; /* 元画像の比率を保つ */
+  }
+
+  /* セクション見出し波線 */
+  .sec h2 {
+    font-size: clamp(20px, 6vw, 28px);
+    background-size: 100% auto;
+    padding-bottom: 14px;
+    margin-bottom: var(--sp-l);
+  }
+
+  /* カードを縦積み */
+  .sakuhin {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    border-radius: 6px;
+    overflow: hidden;   /* 角丸を子要素に適用 */
+    margin-bottom: var(--sp-l);
+  }
+
+  .sakuhin > a.thumb {
+    flex: none;
+    width: 100%;
+    height: 200px;
+    border-radius: 0;   /* カードの角丸に委ねる */
+  }
+
+  .sakuhin-migi {
+    padding: var(--sp-m) var(--sp-s);
+  }
+
+  .sakuhin-migi h3 { font-size: 15px; }
+
+  /* Profile */
+  #profile { padding: var(--sp-l) 0; }
+  #profile .photo img { width: 120px; height: 120px; }
+}
